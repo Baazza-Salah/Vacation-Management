@@ -129,6 +129,7 @@ $conn->close();
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="shortcut icon" href="images/logo.png" type="image/png">
 
     <title>Login</title>
@@ -137,10 +138,10 @@ $conn->close();
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 150px; /* Adjust height as needed */
+            height: 150px; 
         }
         .logo-container img {
-            height: 150px; /* Adjust height as needed */
+            height: 150px;
         }
         .card {
             margin-top: 20px;
@@ -148,6 +149,24 @@ $conn->close();
     </style>
 </head>
 <body class="bg-light">
+        <!--====== PRELOADER PART START ======-->
+        <div class="preloader">
+      <div class="loader">
+        <div class="spinner">
+          <div class="spinner-container">
+            <div class="spinner-rotator">
+              <div class="spinner-left">
+                <div class="spinner-circle"></div>
+              </div>
+              <div class="spinner-right">
+                <div class="spinner-circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--====== PRELOADER PART ENDS ======-->
     <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
         <div class="logo-container">
             <img src="images/logo.png" alt="Logo">
@@ -190,7 +209,7 @@ $conn->close();
     </div>
     <footer>
         <div style="text-align:center;">
-            2024 @ Province de Guercif --<small> Developed and secured By BAAZZA SALAHEDDINE</small>
+            2024 @ Province de Guercif
         </div>
         <div class="clearfix"></div>
     </footer>
@@ -198,5 +217,11 @@ $conn->close();
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/count-up.min.js"></script>
+    <script src="assets/js/particles.min.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

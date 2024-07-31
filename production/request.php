@@ -172,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="col-lg-12" style="justify-content: center; text-align: center;">
                         <div class="copyright d-sm-flex justify-content-between" style="justify-content: center; text-align: center;">
                             <div class="copyright-content">
-                                <p class="text">2024 @ Province de Guercif --<small><SMall> Developped and secured By BAAZZA SALAHEDDINE</SMall></small></p>
+                                <p class="text">2024 @ Province de Guercif</p>
                             </div>
                         </div>
                     </div>

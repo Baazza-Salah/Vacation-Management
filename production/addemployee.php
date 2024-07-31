@@ -300,7 +300,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <footer>
             <div class="pull-right">
             <p class="text" >
-                    2024 @ Province de Guercif --<small> Developped and secured By BAAZZA SALAHEDDINE</small>
+                    2024 @ Province de Guercif
                   </p>
             </div>
             <div class="clearfix"></div>

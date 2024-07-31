@@ -1,4 +1,6 @@
 <?php
+
+
 session_start();
 
 
@@ -8,6 +10,29 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("Pragma: no-cache");
     header("Expires: 0");
     header("Location: login.php");
+    exit;
+}
+
+$host = 'localhost';
+$dbname = 'GestionConge';
+$username = 'root';
+$password = '';
+
+try {
+    
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+
+    $stmt = $pdo->query("SELECT DemandeConge.*, InfoEmployee.Nom AS nomE, InfoEmployee.Prenom AS prenomE
+                            FROM DemandeConge
+                            JOIN InfoEmployee ON DemandeConge.NumPPR = InfoEmployee.numPPR
+                            WHERE DemandeConge.Etat = 'Approved'");
+
+
+    $archives = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
     exit;
 }
 ?>
@@ -157,9 +182,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     <thead>
                                                     <tr>
                                                         <th>idDemande</th>
+                                                        <th>Employee PPR</th>
                                                         <th>Employee Nom</th>
                                                         <th>Employee Prenom</th>
-                                                        <th>Employee PPR</th>
                                                         <th>Start Date</th>
                                                         <th>End Date</th>
                                                         <th>Duree</th>
@@ -169,52 +194,34 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php
-                                                            $host = 'localhost';
-                                                            $dbname = 'GestionConge';
-                                                            $username = 'root';
-                                                            $password = '';
+                                                        <?php foreach ($archives as $archive): ?>
+                                                            <tr>
+                                                                <td><?php echo htmlspecialchars($archive['idDemande']); ?></td>
+                                                                <td><?php echo htmlspecialchars($archive['NumPPR']); ?></td>
+                                                                <td><?php echo htmlspecialchars($archive['nomE']); ?></td>
+                                                                <td><?php echo htmlspecialchars($archive['prenomE']); ?></td>
+                                                                <td><?php echo htmlspecialchars($archive['DateDebut']); ?></td>
+                                                                <td><?php echo htmlspecialchars($archive['DateFin']); ?></td>
+                                                                <td><?php echo htmlspecialchars($archive['Duree']); ?></td>
+                                                                <td>
+                                                                    <?php if ($archive['idConge'] == 1): ?>
+                                                                        <p>Administrative</p>
+                                                                    <?php elseif ($archive['idConge'] == 2): ?>
+                                                                        <p>Exceptionnel</p>
+                                                                    <?php endif; ?>
+                                                                </td>
+                                                                <td><?php echo htmlspecialchars($archive['Description']); ?></td>
+                                                                <td>
+                                                                    <?php if ($archive['idConge'] == 1): ?>
+                                                                        <a href='printDemandeAdmin.php?id=<?php echo $archive['idDemande']; ?>' class='btn btn-round btn-default btn-xs'><i class='fa fa-print '></i></a>
+                                                                    <?php elseif ($archive['idConge'] == 2): ?>
+                                                                        <a href='printDemandeExcep.php?id=<?php echo $archive['idDemande']; ?>' class='btn btn-round btn-default btn-xs'><i class='fa fa-print '></i></a>
+                                                                    <?php endif; ?>
+                                                                </td>
 
-                                                            try {
-
-                                                                $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-                                                                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
-                                                                $stmt = $pdo->prepare("
-                                                                    SELECT DemandeConge.*, InfoEmployee.Nom AS nomE, InfoEmployee.Prenom AS prenomE
-                                                                    FROM DemandeConge
-                                                                    JOIN InfoEmployee ON DemandeConge.NumPPR = InfoEmployee.numPPR
-                                                                    WHERE DemandeConge.Etat = 'Approved'
-                                                                ");
-                                                                $stmt->execute();
-
-
-                                                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                                                    echo "<tr>";
-                                                                    echo "<td>" . htmlspecialchars($row['idDemande']) . "</td>";
-                                                                    echo "<td>" . htmlspecialchars($row['nomE']) . "</td>";
-                                                                    echo "<td>" . htmlspecialchars($row['prenomE']) . "</td>";
-                                                                    echo "<td>" . htmlspecialchars($row['NumPPR']) . "</td>";
-                                                                    echo "<td>" . htmlspecialchars($row['DateDebut']) . "</td>";
-                                                                    echo "<td>" . htmlspecialchars($row['DateFin']) . "</td>";
-                                                                    echo "<td>" . htmlspecialchars($row['Duree']) . "</td>";
-                                                                    echo "<td>";
-                                                                    if ($row['idConge'] == 1) {
-                                                                        echo "<p><big>Administrative</big></p>";
-                                                                    } elseif ($row['idConge'] == 2) {
-                                                                        echo "<p><big>Exceptionnel</big></p>";
-                                                                    }
-                                                                    echo "</td>";
-                                                                    echo "<td>" . htmlspecialchars($row['Description']) . "</td>";
-                                                                    echo "<td><a href='printDemande.html' class='btn btn-round btn-default btn-xs'><i class='fa fa-print '></i></a></td>";
-                                                                    echo "</tr>";
-                                                                }
                                                                 
-                                                            } catch (PDOException $e) {
-                                                                echo "Database connection failed: " . $e->getMessage();
-                                                            }
-                                                        ?>
+                                                            </tr>
+                                                        <?php endforeach; ?>
 
                                                     </tbody>
                                                 </table>
@@ -234,7 +241,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <footer>
             <div class="pull-right">
             <p class="text" >
-                    2024 @ Province de Guercif --<small> Developped and secured By BAAZZA SALAHEDDINE</small>
+                    2024 @ Province de Guercif
                   </p>
             </div>
             <div class="clearfix"></div>

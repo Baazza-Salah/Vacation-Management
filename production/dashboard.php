@@ -55,8 +55,19 @@ while($row = $result1->fetch_assoc()) {
     $leaveStatusData[] = $row;
 }
 
+$sql11 = "SELECT Etat, COUNT(*) as count FROM DemandeConge GROUP BY Etat";
+$result11 = $conn->query($sql11);
+$leaveStatusDData = [];
+while($row = $result11->fetch_assoc()) {
+    $leaveStatusDData[] = $row;
+}
+
 // Leave Type Distribution
-$sql2 = "SELECT t.intitule, COUNT(*) as count FROM DemandeConge d JOIN TypeConge t ON d.idConge = t.idConge GROUP BY t.intitule";
+$sql2 = "SELECT t.intitule, COUNT(*) as count 
+         FROM DemandeConge d 
+         JOIN TypeConge t ON d.idConge = t.idConge 
+         WHERE d.Etat = 'Approved' 
+         GROUP BY t.intitule";
 $result2 = $conn->query($sql2);
 $leaveTypeData = [];
 while($row = $result2->fetch_assoc()) {
@@ -64,7 +75,10 @@ while($row = $result2->fetch_assoc()) {
 }
 
 // Leaves per Month
-$sql3 = "SELECT MONTH(DateDebut) as month, COUNT(*) as count FROM DemandeConge GROUP BY MONTH(DateDebut)";
+$sql3 = "SELECT MONTH(DateDebut) as month, COUNT(*) as count 
+         FROM DemandeConge 
+         WHERE Etat = 'Approved' 
+         GROUP BY MONTH(DateDebut)";
 $result3 = $conn->query($sql3);
 $leavesPerMonthData = [];
 while($row = $result3->fetch_assoc()) {
@@ -204,7 +218,7 @@ $conn->close();
                             <div class="count" id="single-employees" data-count="<?php echo $single_employees; ?>">0</div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 ">
+                    <div class="col-md-6 col-sm-12 ">
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Leave Status <small>Overview</small></h2>
@@ -215,6 +229,20 @@ $conn->close();
                             </div>
                         </div>
                     </div>
+
+                    <!-- FILL THIS ONE WITH A CHART PIE THAT SHOWS THE DISTIBUTION OF LEAVE STATUS -->
+                    <div class="col-md-6 col-sm-12 ">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Leave Status Distribution <small>Overview</small></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <canvas id="leaveStatusDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-6 col-sm-12 ">
                         <div class="x_panel">
                             <div class="x_title">
@@ -239,6 +267,16 @@ $conn->close();
                     </div>
                 </div>
             </div>
+            <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+            <p class="text" >
+                    2024 @ Province de Guercif
+                  </p>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
         </div>
     </div>
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -275,9 +313,35 @@ $conn->close();
             datasets: [{
                 label: 'Leave Status',
                 data: <?php echo json_encode(array_column($leaveStatusData, 'count')); ?>,
+                backgroundColor: 'rgba(55, 15, 4, 0.2)',
+                borderColor: 'rgba(55, 15, 64, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        const leaveStatusConfig = {
+            type: 'line',
+            data: leaveStatusData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+
+        // Prepare data for the leave status Distribution chart
+        const leaveStatusDData = {
+            labels: <?php echo json_encode(array_column($leaveStatusDData, 'Etat')); ?>,
+            datasets: [{
+                label: 'Leave Status Distribution',
+                data: <?php echo json_encode(array_column($leaveStatusDData, 'count')); ?>,
                 backgroundColor: [
                     'rgba(75, 192, 192, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 16, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(255, 99, 132, 0.2)'
                 ],
@@ -291,9 +355,9 @@ $conn->close();
             }]
         };
 
-        const leaveStatusConfig = {
-            type: 'bar',
-            data: leaveStatusData,
+        const leaveStatusDConfig = {
+            type: 'pie',
+            data: leaveStatusDData,
             options: {
                 responsive: true,
                 scales: {
@@ -304,14 +368,23 @@ $conn->close();
             }
         };
 
+
+
+
         // Prepare data for the leave type chart
         const leaveTypeData = {
             labels: <?php echo json_encode(array_column($leaveTypeData, 'intitule')); ?>,
             datasets: [{
                 label: 'Leave Types',
                 data: <?php echo json_encode(array_column($leaveTypeData, 'count')); ?>,
-                backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                borderColor: 'rgba(153, 102, 255, 1)',
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',    
+                    'rgba(255, 99, 132, 1)'
+                ],
                 borderWidth: 1
             }]
         };
@@ -330,14 +403,14 @@ $conn->close();
             datasets: [{
                 label: 'Leaves Per Month',
                 data: <?php echo json_encode(array_column($leavesPerMonthData, 'count')); ?>,
-                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                backgroundColor: 'rgba(255, 159, 4, 0.2)',
                 borderColor: 'rgba(255, 159, 64, 1)',
                 borderWidth: 1
             }]
         };
 
         const leavesPerMonthConfig = {
-            type: 'line',
+            type: 'bar',
             data: leavesPerMonthData,
             options: {
                 responsive: true,
@@ -353,6 +426,9 @@ $conn->close();
         window.onload = () => {
             const leaveStatusCtx = document.getElementById('leaveStatusChart').getContext('2d');
             new Chart(leaveStatusCtx, leaveStatusConfig);
+
+            const leaveStatusDistributionChartCtx = document.getElementById('leaveStatusDistributionChart').getContext('2d');
+            new Chart(leaveStatusDistributionChartCtx, leaveStatusDConfig);
 
             const leaveTypeCtx = document.getElementById('leaveTypeChart').getContext('2d');
             new Chart(leaveTypeCtx, leaveTypeConfig);

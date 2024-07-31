@@ -2,18 +2,18 @@
 // Start session
 session_start();
 
-// Function to log details
+// Function to logout details
 function log_logout($username, $ip_address, $device_info) {
     $date = date('Y-m-d');
     $time = date('H:i:s');
     $log_entry = "$date : $time : $username : LOGOUT : $ip_address : $device_info\n";
 
-    // Ensure the correct path to logs.txt
-    $log_file = __DIR__ . '/logs.txt'; // Adjust path if necessary
+    // path to logs.txt
+    $log_file = __DIR__ . '/logs.txt'; 
     file_put_contents($log_file, $log_entry, FILE_APPEND);
 }
 
-// Get user details from session
+
 $username = $_SESSION["username"] ?? 'Unknown User';
 
 // Destroy the session
@@ -26,9 +26,9 @@ $device_info = $_SERVER['HTTP_USER_AGENT'];
 log_logout($username, $ip_address, $device_info);
 
 // Prevent caching of the page
-header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
-header("Pragma: no-cache"); // HTTP 1.0.
-header("Expires: 0"); // Proxies.
-header("Location: index.html"); // Redirect to login page
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0"); 
+header("Location: index.html");
 exit;
 ?>

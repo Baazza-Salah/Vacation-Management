@@ -182,44 +182,44 @@ try {
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive" >
-					
-                    <table style="text-align: center; justify-content: center;" id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                      <thead>
-                        <tr>
-                            <th>Num PPR</th>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Fonction</th>
-                            <th>Affectation</th>
-                            <th>Date Affectation</th>
-                            <th>Echelon</th>
-                            <th style="width: 5%"><i></i></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php foreach ($employees as $employee): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($employee['numPPR']); ?></td>
-                                <td><?php echo htmlspecialchars($employee['Prenom']); ?></td>
-                                <td><?php echo htmlspecialchars($employee['Nom']); ?></td>
-                                <td><?php echo htmlspecialchars($employee['fonction']); ?></td>
-                                <td><?php echo htmlspecialchars($employee['affectation']); ?></td>
-                                <td><?php echo htmlspecialchars($employee['DateEffet']); ?></td>
-                                <td><?php echo htmlspecialchars($employee['echelon']); ?></td>
-                                
-                                <td>
-                                  <a href="profile.php?id=<?php echo $employee['numPPR']; ?>" class="btn btn-round btn-primary btn-xs"><i class="fa fa-eye"></i></a>
-                                </td>
+                              
+                              <table style="text-align: center; justify-content: center;" id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                  <tr>
+                                      <th>Num PPR</th>
+                                      <th>First name</th>
+                                      <th>Last name</th>
+                                      <th>Grade</th>
+                                      <th>Fonction</th>
+                                      <th>Affectation</th>
+                                      <th>Date Affectation</th>
+                                      <th style="width: 5%"><i></i></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <?php foreach ($employees as $employee): ?>
+                                      <tr>
+                                          <td><?php echo htmlspecialchars($employee['numPPR']); ?></td>
+                                          <td><?php echo htmlspecialchars($employee['Prenom']); ?></td>
+                                          <td><?php echo htmlspecialchars($employee['Nom']); ?></td>
+                                          <td><?php echo htmlspecialchars($employee['Grade']); ?></td>
+                                          <td><?php echo htmlspecialchars($employee['fonction']); ?></td>
+                                          <td><?php echo htmlspecialchars($employee['affectation']); ?></td>
+                                          <td><?php echo htmlspecialchars($employee['DateEffet']); ?></td>
+                                          
+                                          <td>
+                                            <a href="profile.php?id=<?php echo $employee['numPPR']; ?>" class="btn btn-round btn-primary btn-xs"><i class="fa fa-eye"></i></a>
+                                          </td>
 
-                                
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              </div>
+                                          
+                                      </tr>
+                                  <?php endforeach; ?>
+                              </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                 </div>
               </div>
             </div>
@@ -231,7 +231,7 @@ try {
         <footer>
             <div class="pull-right">
             <p class="text" >
-                    2024 @ Province de Guercif --<small> Developped and secured By BAAZZA SALAHEDDINE</small>
+                    2024 @ Province de Guercif
                   </p>
             </div>
             <div class="clearfix"></div>

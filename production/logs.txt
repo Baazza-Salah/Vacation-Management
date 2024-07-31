@@ -90,3 +90,16 @@
 2024-07-28 : 16:39:21 : admin : LOGOUT : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
 2024-07-28 : 16:39:36 : admin@admin.ma : admin : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0 : Success
 2024-07-28 : 16:42:52 : admin : LOGOUT : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+2024-07-28 : 17:22:36 : admin@admin.ma : admin : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0 : Success
+2024-07-28 : 18:46:08 : admin : LOGOUT : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+2024-07-29 : 11:19:04 : admin@admin.ma : admin : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0 : Success
+2024-07-29 : 13:27:20 : admin@admin.ma : admin : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0 : Success
+2024-07-29 : 13:40:22 : admin : LOGOUT : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+2024-07-29 : 13:40:45 : admin@admin.ma : admin : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0 : Success
+2024-07-29 : 20:59:22 : admin : LOGOUT : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+2024-07-29 : 21:00:28 : admin@admin.ma : admin : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0 : Success
+2024-07-29 : 21:14:17 : admin : LOGOUT : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+2024-07-29 : 21:14:49 : user@user.ma : user : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0 : Success
+2024-07-30 : 20:35:41 : user : LOGOUT : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+2024-07-30 : 20:37:33 : admin@admin.ma : admin : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0 : Success
+2024-07-31 : 10:46:38 : admin : LOGOUT : 127.0.0.1 : Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
